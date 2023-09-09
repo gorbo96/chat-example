@@ -1,0 +1,39 @@
+:host ::ng-deep .ant-layout-header{
+    height: auto;
+   }
+nz-card {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border-radius: 10px;    
+}
+.container-bot {
+    width: 4%;
+    position: fixed;
+    right: 20px;
+    bottom: 85px;
+    height: 13%;
+}
+.chat-box {
+    width: 20%;
+    position: fixed;
+    right: 20px;
+    bottom: 85px;
+    height: 60%;    
+}
+.img-bot {
+    width: 5%;
+    right: 20px;
+    bottom: 75px;
+    position: fixed;
+}
+.img-bot-icon {
+    width: 14%;
+    margin: 5px 0px 5px 5px;    
+}
+@media (max-width: 450px) {
+    .container-bot {
+        visibility: hidden;
+    }
+    .img-bot {
+        visibility: hidden;
+    }
+}
