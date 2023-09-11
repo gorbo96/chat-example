@@ -3,7 +3,7 @@
 </div>
 <div class="chat-box" *ngIf="visiblebox" style="z-index: 999;">
     <nz-layout style="width: 100%;height: 100%;background-color: white;">        
-        <nz-header style="background-color:#829fbb;padding: 0px 0px 0px 0px;">
+        <nz-header style="background-color:#46A0BA;padding: 0px 0px 0px 0px;">
             <nz-row [nzAlign]="'middle'" [nzJustify]="'center'">
                 <nz-col [nzSpan]="4">
                     <nz-avatar nzIcon="user" nzSrc="assets/icons/chatbot2.gif" style="margin-left: 10px;"></nz-avatar>
@@ -12,7 +12,7 @@
                     Chatbot
                 </nz-col>
                 <nz-col [nzSpan]="2">
-                    <button nzButton (click)="visiblechat()" style="background-color:#829fbb;border: 0px;">
+                    <button nzButton (click)="visiblechat()" style="background-color:#46A0BA;border: 0px;">
                         <span nz-icon nzType="close" nzTheme="outline" style="font-size: 20px;color: white;"></span>
                     </button>                    
                 </nz-col>
@@ -55,7 +55,14 @@
 <div style="height: 100%;width: 100%;">
     <nz-layout style="height: 100%;width: 100%;">
         <nz-header style="background: white;" >
-        <nz-page-header class="site-page-header" nzTitle="Servicio de Atencion al Cliente"></nz-page-header>
+            <nz-row>
+                <nz-col [nzSpan]="6">
+                    <img src="assets/logoSF.png" style="width: -webkit-fill-available;">
+                </nz-col>
+                <nz-col [nzSpan]="18">
+                    <nz-page-header class="site-page-header" nzTitle="Servicio de Atencion al Cliente"></nz-page-header>
+                </nz-col>
+            </nz-row>            
         </nz-header>
         <nz-content style="overflow-y: scroll;">
             <nz-row [nzAlign]="'middle'" [nzJustify]="'center'">
@@ -63,7 +70,7 @@
                     <nz-list style="margin-left: 10px;margin-right: 10px;">
                         <div *ngFor="let msg of messages">
                             <nz-list-item *ngIf="msg.system" style="flex-direction: row-reverse;">
-                                <nz-card  [nzBorderless]=true [nzSize]="'small'" style="white-space: pre-line;flex-direction: row-reverse;background-color: #687f95;color: white;" [nzLoading]="msg.loading">
+                                <nz-card  [nzBorderless]=true [nzSize]="'small'" style="white-space: pre-line;flex-direction: row-reverse;background-color: #46A0BA;color: white;" [nzLoading]="msg.loading">
                                     {{msg.data}}
                                 </nz-card>
                             </nz-list-item>
@@ -77,13 +84,13 @@
                 </nz-col>
             </nz-row>
         </nz-content>
-        <nz-footer style="background-color:#829fbb;">
+        <nz-footer style="background-color:#46A0BA;">
         <nz-row>
             <nz-col [nzSpan]="21">
                 <input nz-input placeholder="Ingrese su pregunta" [(ngModel)]="actMsg.data" (keydown.enter)="sendMessage()" />
             </nz-col>
             <nz-col [nzSpan]="2">
-                <button nz-button nzType="primary" nzShape="circle" [nzSize]="'default'" style="margin-left: 10px;" (click)="sendMessage()">
+                <button nz-button nzType="primary" nzShape="circle" [nzSize]="'default'" style="margin-left: 10px;background-color: #317082;" (click)="sendMessage()">
                     <span nz-icon nzType="send" nzTheme="outline"></span>
                 </button>
             </nz-col>
