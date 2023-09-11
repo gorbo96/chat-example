@@ -1,7 +1,7 @@
 <div nz-button class="container-bot"  nz-tooltip nzTooltipTitle="Chat Informativo" (click)="visiblechat()">
     <img src="assets/icons/chatbot2.gif" class="img-bot" alt="">
 </div>
-<div class="chat-box" *ngIf="visiblebox">
+<div class="chat-box" *ngIf="visiblebox" style="z-index: 999;">
     <nz-layout style="width: 100%;height: 100%;background-color: white;">        
         <nz-header style="background-color:#829fbb;padding: 0px 0px 0px 0px;">
             <nz-row [nzAlign]="'middle'" [nzJustify]="'center'">
@@ -18,7 +18,7 @@
                 </nz-col>
             </nz-row>
         </nz-header>
-        <nz-content>
+        <nz-content style="overflow-y: scroll;">
             <nz-row [nzAlign]="'middle'" [nzJustify]="'center'">
                 <nz-col [nzSpan]="20">
                     <nz-list style="margin-left: 10px;margin-right: 10px;">
