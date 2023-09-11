@@ -15,7 +15,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class AppComponent implements OnInit {
   messages:MessageGPT[]=[]
   msgParams:MessageParams= new MessageParams()
-  actMsg:MessageGPT=new MessageGPT()  
+  actMsg:MessageGPT=new MessageGPT()
+  visiblebox:boolean=false
   
   constructor(public msg: ChatServiceService){
   }
@@ -36,5 +37,8 @@ export class AppComponent implements OnInit {
       this.messages[this.messages.length - 1].loading=false
     })
     this.actMsg.data=""
+  }
+  visiblechat(){
+    this.visiblebox=!this.visiblebox
   }
 }

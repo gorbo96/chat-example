@@ -1,18 +1,20 @@
-<div nz-button class="container-bot"  nz-tooltip nzTooltipTitle="Chat Informativo">
+<div nz-button class="container-bot"  nz-tooltip nzTooltipTitle="Chat Informativo" (click)="visiblechat()">
     <img src="assets/icons/chatbot2.gif" class="img-bot" alt="">
 </div>
-<div class="chat-box">
+<div class="chat-box" *ngIf="visiblebox">
     <nz-layout style="width: 100%;height: 100%;background-color: white;">        
         <nz-header style="background-color:#829fbb;padding: 0px 0px 0px 0px;">
             <nz-row [nzAlign]="'middle'" [nzJustify]="'center'">
                 <nz-col [nzSpan]="4">
                     <nz-avatar nzIcon="user" nzSrc="assets/icons/chatbot2.gif" style="margin-left: 10px;"></nz-avatar>
                 </nz-col>
-                <nz-col [nzSpan]="18">
+                <nz-col [nzSpan]="15">
                     Chatbot
                 </nz-col>
                 <nz-col [nzSpan]="2">
-                    <span nz-icon nzType="close" nzTheme="outline" style="font-size: 20px;color: white;"></span>
+                    <button nzButton (click)="visiblechat()" style="background-color:#829fbb;border: 0px;">
+                        <span nz-icon nzType="close" nzTheme="outline" style="font-size: 20px;color: white;"></span>
+                    </button>                    
                 </nz-col>
             </nz-row>
         </nz-header>
@@ -36,12 +38,12 @@
                 </nz-col>
             </nz-row>
         </nz-content>
-        <nz-footer>
+        <nz-footer style="padding: 5px 5px 5px 5px;">
             <nz-row>
-                <nz-col [nzSpan]="21">
+                <nz-col [nzSpan]="19">
                     <input nz-input placeholder="Ingrese su pregunta" [(ngModel)]="actMsg.data" (keydown.enter)="sendMessage()" />
                 </nz-col>
-                <nz-col [nzSpan]="2">
+                <nz-col [nzSpan]="3">
                     <button nz-button nzType="primary" nzShape="circle" [nzSize]="'default'" style="margin-left: 10px;" (click)="sendMessage()">
                         <span nz-icon nzType="send" nzTheme="outline"></span>
                     </button>
