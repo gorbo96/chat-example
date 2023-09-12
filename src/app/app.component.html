@@ -43,9 +43,12 @@
                 <nz-col [nzSpan]="19">
                     <input nz-input placeholder="Ingrese su pregunta" [(ngModel)]="actMsg.data" (keydown.enter)="sendMessage()" />
                 </nz-col>
-                <nz-col [nzSpan]="3">
+                <nz-col [nzSpan]="3">                    
                     <button nz-button nzType="primary" nzShape="circle" [nzSize]="'default'" style="margin-left: 10px;" (click)="sendMessage()">
                         <span nz-icon nzType="send" nzTheme="outline"></span>
+                    </button>
+                    <button nz-button nzType="primary" nzShape="circle" [nzSize]="'default'" (click)="sendMessage()">
+                        <span nz-icon nzType="audio" nzTheme="outline"></span>
                     </button>
                 </nz-col>
             </nz-row>
@@ -64,7 +67,7 @@
                 </nz-col>
             </nz-row>            
         </nz-header>
-        <nz-content style="overflow-y: scroll;">
+        <nz-content style="overflow-y: auto;" #scrollframe>            
             <nz-row [nzAlign]="'middle'" [nzJustify]="'center'">
                 <nz-col [nzSpan]="20">
                     <nz-list style="margin-left: 10px;margin-right: 10px;">
@@ -87,11 +90,14 @@
         <nz-footer style="background-color:#46A0BA;">
         <nz-row>
             <nz-col [nzSpan]="21">
-                <input nz-input placeholder="Ingrese su pregunta" [(ngModel)]="actMsg.data" (keydown.enter)="sendMessage()" />
+                <input nz-input placeholder="Ingrese su pregunta" [(ngModel)]="actMsg.data" (keydown.enter)="sendMessage()" />                
             </nz-col>
-            <nz-col [nzSpan]="2">
+            <nz-col [nzSpan]="2">                
                 <button nz-button nzType="primary" nzShape="circle" [nzSize]="'default'" style="margin-left: 10px;background-color: #317082;" (click)="sendMessage()">
                     <span nz-icon nzType="send" nzTheme="outline"></span>
+                </button>
+                <button nz-button nzType="primary" nzShape="circle" [nzSize]="'default'" style="background-color: #317082;">
+                    <span nz-icon nzType="audio" nzTheme="outline"></span>
                 </button>
             </nz-col>
         </nz-row>

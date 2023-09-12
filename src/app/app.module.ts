@@ -9,13 +9,14 @@ import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgZorroAntdModule } from './ng-zorro/ng-zorro.module';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 registerLocaleData(es);
 
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule,HttpClientModule,FormsModule, BrowserAnimationsModule,NgZorroAntdModule],
+  imports: [BrowserModule,HttpClientModule,FormsModule, BrowserAnimationsModule,NgZorroAntdModule,PdfViewerModule],
   providers: [
     { provide: NZ_I18N, useValue: es_ES }
   ],
