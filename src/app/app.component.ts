@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ChatServiceService } from './chat-service.service';
 import { BehaviorSubject, Observable, Subject, of } from 'rxjs';
 import { MessageParams} from './message-params';
@@ -6,8 +6,8 @@ import { MessageGPT} from './message-gpt';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd/message';
-
 import { DomSanitizer } from '@angular/platform-browser';
+import {PdfViewerComponent} from './modules/pdf-viewer/pdf-viewer.component'
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  @ViewChild('scrollframe', { read: ElementRef,static:false}) public scrollFrame: ElementRef<any> | undefined;  
+  @ViewChild('scrollframe', { read: ElementRef,static:false}) scrollFrame: ElementRef<any> | undefined;  
   messages:MessageGPT[]=[]
   msgParams:MessageParams= new MessageParams()
   actMsg:MessageGPT=new MessageGPT()
@@ -62,30 +62,34 @@ export class AppComponent implements OnInit{
   }
   */
 
-  sendMessage(){    
+  async sendMessage(){    
     let actMsg= new MessageGPT()
     actMsg.data=this.actMsg.data
     this.messages.push(actMsg)
-    this.msgParams.question=actMsg.data
+    this.msgParams.question=actMsg.data   
+    this.actMsg.data=""    
+    await this.scrollBottom()
     let newMsg= new MessageGPT()
     newMsg.loading=true
     newMsg.system=true
-    this.messages.push(newMsg)    
-    this.msg.getChatResponse(this.msgParams).subscribe(data=>{
-      this.messages[this.messages.length - 1].data=data.data.content
-      this.messages[this.messages.length - 1].loading=false
-      if (this.scrollFrame!=undefined){      
-        this.scrollFrame.nativeElement.scrollTo({
-          top: 300,
-          left: 0,
-          behavior: "instant",
-        })
-      }
-    })
-    this.actMsg.data=""
-    
+    this.messages.push(newMsg)
+    await this.scrollBottom()
+    let aux= await this.msg.getChatResponse(this.msgParams).toPromise()
+    this.messages[this.messages.length - 1].data=aux.data.content
+    this.messages[this.messages.length - 1].loading=false    
+    await this.scrollBottom()
   }
   visiblechat(){
     this.visiblebox=!this.visiblebox
+  }
+  async scrollBottom(){
+    await new Promise(f => setTimeout(f, 100));
+    if (this.scrollFrame!=undefined){
+      this.scrollFrame.nativeElement.scrollTo({
+        top: this.scrollFrame.nativeElement.scrollHeight,
+        left: 0,
+        behavior: "instant",
+      })
+    }
   }
 }
