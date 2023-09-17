@@ -1,9 +1,7 @@
-<button nz-button class="avatar" (click)="visiblechat()"  *ngIf="!visiblebox" nzShape="circle">
-    <img src="assets/avatar.png" class="avatarImg" alt="">
-</button>
-<div class="contenedorChat" *ngIf="visiblebox" style="z-index: 999;">
-    <nz-layout style="width: 100%;height: 100%;background-color: white;">        
-        <nz-header style="background-color:#46A0BA;padding: 0px 0px 0px 0px;">
+<nz-avatar [nzSize]="64" nzSrc="assets/avatar.png" class="avatarImg" nz-button (click)="visiblechat()" *ngIf="!visiblebox"></nz-avatar>
+<div class="contenedorChat" *ngIf="visiblebox">
+    <nz-layout>        
+        <nz-header>
             <nz-row [nzAlign]="'middle'" [nzJustify]="'center'">
                 <nz-col [nzXs]="3" [nzSm]="3" [nzMd]="6" [nzLg]="5" [nzXl]="4" [nzXXl]="3">
                     <nz-avatar nzSrc="assets/avatar.png" style="margin-left: 10px;"></nz-avatar>
@@ -12,19 +10,19 @@
                     Chatbot
                 </nz-col>
                 <nz-col [nzXs]="2" [nzSm]="2" [nzMd]="5" [nzLg]="4" [nzXl]="3" [nzXXl]="2">
-                    <button nzButton (click)="visiblechat()" style="background-color:#46A0BA;border: 0px;">
+                    <button nzButton (click)="visiblechat()" style="border: 0px;">
                         <span nz-icon nzType="close" nzTheme="outline" style="font-size: 20px;color: white;"></span>
                     </button>                    
                 </nz-col>
             </nz-row>
         </nz-header>
-        <nz-content style="overflow-y: scroll;">
+        <nz-content style="overflow-y: auto;" #scrollframe>
             <nz-row [nzAlign]="'middle'" [nzJustify]="'center'">
                 <nz-col [nzSpan]="20">
                     <nz-list style="margin-left: 10px;margin-right: 10px;">
                         <div *ngFor="let msg of messages">
                             <nz-list-item *ngIf="msg.system" style="flex-direction: row-reverse;">
-                                <nz-card  [nzBorderless]=true [nzSize]="'small'" style="white-space: pre-line;flex-direction: row-reverse;background-color: #687f95;color: white;" [nzLoading]="msg.loading">
+                                <nz-card  [nzBorderless]=true [nzSize]="'small'" style="white-space: pre-line;flex-direction: row-reverse;background-color: #e69f00;color: white;" [nzLoading]="msg.loading">
                                     {{msg.data}}
                                 </nz-card>
                             </nz-list-item>
@@ -41,6 +39,7 @@
         <nz-footer style="padding: 5px 5px 5px 5px;">
             <nz-row>
                 <nz-col [nzXs]="20" [nzSm]="20" [nzMd]="12" [nzLg]="14" [nzXl]="16" [nzXXl]="18">
+                    <img src="assets/animation_lmo3kbfc_small.gif" style="width:-webkit-fill-available;height: 40px;">
                     <input nz-input placeholder="Ingrese su pregunta" [(ngModel)]="actMsg.data" (keydown.enter)="sendMessage()" />
                 </nz-col>
                 <nz-col [nzXs]="2" [nzSm]="2" [nzMd]="6" [nzLg]="5" [nzXl]="4" [nzXXl]="3">                    
@@ -57,57 +56,3 @@
         </nz-footer>
     </nz-layout>
 </div>
-<!--
-<div style="height: 100%;width: 100%;">
-    <nz-layout style="height: 100%;width: 100%;">
-        <nz-header style="background: white;padding: 0px 0px 0px 0px;" >
-            <nz-row>
-                <nz-col [nzSpan]="6">
-                    <img src="assets/logoSF.png" style="width: -webkit-fill-available;">
-                </nz-col>
-                <nz-col [nzSpan]="18">
-                    <nz-page-header class="site-page-header" nzTitle="Servicio de Atención al Cliente"></nz-page-header>
-                </nz-col>
-            </nz-row>            
-        </nz-header>
-        <nz-content style="overflow-y: auto;" #scrollframe >            
-            <nz-row [nzAlign]="'middle'" [nzJustify]="'center'">
-                <nz-col [nzSpan]="20">                    
-                    <nz-list style="margin-left: 10px;margin-right: 10px;">                        
-                        <div *ngFor="let msg of messages">
-                            <nz-list-item *ngIf="msg.system" style="flex-direction: row-reverse;">
-                                <nz-card  [nzBorderless]=true [nzSize]="'small'" style="white-space: pre-line;flex-direction: row-reverse;background-color: #46A0BA;color: white;" [nzLoading]="msg.loading">
-                                    {{msg.data}}
-                                </nz-card>
-                            </nz-list-item>
-                            <nz-list-item *ngIf="!msg.system">
-                                <nz-card  [nzBorderless]=true [nzSize]="'small'" style="white-space: pre-line;" [nzLoading]="msg.loading">
-                                    {{msg.data}}
-                                </nz-card>
-                            </nz-list-item>
-                        </div>
-                        <nz-list-item style="flex-direction: row-reverse">
-                            <app-pdf-viewer></app-pdf-viewer>
-                        </nz-list-item>
-                    </nz-list>
-                </nz-col>
-            </nz-row>
-        </nz-content>
-        <nz-footer style="background-color:#46A0BA;padding: 10px 10px 10px 10px;">
-        <nz-row>
-            <nz-col [nzLg]="22" [nzXs]="18" [nzMd]="18" [nzSm]="18">
-                <input nz-input placeholder="Ingrese su pregunta" [(ngModel)]="actMsg.data" (keydown.enter)="sendMessage()" />                
-            </nz-col>
-            <nz-col [nzLg]="2" [nzXs]="6" [nzMd]="6" [nzSm]="6">                
-                <button nz-button nzType="primary" nzShape="circle" [nzSize]="'default'" style="margin-left: 10px;background-color: #317082;" (click)="sendMessage()">
-                    <span nz-icon nzType="send" nzTheme="outline"></span>
-                </button>
-                <button nz-button nzType="primary" nzShape="circle" [nzSize]="'default'" style="background-color: #317082;" (click)="scrollBottom()">
-                    <span nz-icon nzType="down" nzTheme="outline"></span>
-                </button>
-            </nz-col>                   
-        </nz-row>
-        </nz-footer>
-    </nz-layout>
-</div>
--->

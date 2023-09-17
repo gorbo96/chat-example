@@ -17,7 +17,8 @@ nz-card {
     position: fixed;
     right: 20px;
     bottom: 85px;
-    height: 60%;    
+    height: 60%;
+    z-index: 999;
 }
 .avatarImg {
     width: 5%;
@@ -45,9 +46,22 @@ nz-card {
         width: 100%;
         height: 100%;
         position: inherit;
+        z-index: 999;
     }
 }
 app-pdf-viewer {    
     height: 43vh;
     width: 60vh;    
+}
+button {
+    background-color: #0066a0;
+}
+nz-col {
+    color: white;
+}
+nz-layout {
+    width: 100%;height: 100%;background-color: white;
+}
+nz-header{
+    background-color:#0066a0;padding: 0px 0px 0px 0px;
 }

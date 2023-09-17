@@ -70,14 +70,17 @@ export class AppComponent implements OnInit{
     this.actMsg.data=""    
     await this.scrollBottom()
     let newMsg= new MessageGPT()
-    newMsg.loading=true
+    newMsg.loading=false
     newMsg.system=true
+    newMsg.data="respuesta"
     this.messages.push(newMsg)
     await this.scrollBottom()
+    /*
     let aux= await this.msg.getChatResponse(this.msgParams).toPromise()
     this.messages[this.messages.length - 1].data=aux.data.content
     this.messages[this.messages.length - 1].loading=false    
     await this.scrollBottom()
+    */
   }
   visiblechat(){
     this.visiblebox=!this.visiblebox
