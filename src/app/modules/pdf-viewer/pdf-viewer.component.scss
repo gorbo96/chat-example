@@ -1,0 +1,28 @@
+pdf-viewer {    
+    height: 60vh;    
+}
+
+@media (max-width: 768px) {
+    pdf-viewer {    
+        height: 43vh;
+        width: 60vh;
+    }
+}
+nz-col{
+    text-align: center;
+    color: white;    
+}
+nz-row{    
+    background-color: #46A0BA;
+}
+nz-card {
+    background-color: #46A0BA;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border-radius: 10px; 
+}
+:host ::ng-deep .ant-card-body{
+    padding: 12px 12px 0px 12px;
+}
+.iconButton{
+    padding: 5px;    
+}
