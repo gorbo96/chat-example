@@ -16,7 +16,7 @@
                 </nz-col>
             </nz-row>
         </nz-header>
-        <nz-content style="overflow-y: auto;" #scrollframe>
+        <nz-content style="overflow-y: auto;background-color: ghostwhite;" #scrollframe>
             <nz-row [nzAlign]="'middle'" [nzJustify]="'center'">
                 <nz-col [nzSpan]="20">
                     <nz-list style="margin-left: 10px;margin-right: 10px;">
@@ -36,20 +36,49 @@
                 </nz-col>
             </nz-row>
         </nz-content>
-        <nz-footer style="padding: 5px 5px 5px 5px;">
-            <nz-row>
-                <nz-col [nzXs]="20" [nzSm]="20" [nzMd]="12" [nzLg]="14" [nzXl]="16" [nzXXl]="18">
-                    <img src="assets/animation_lmo3kbfc_small.gif" style="width:-webkit-fill-available;height: 40px;">
+        <nz-footer style="padding: 5px 5px 5px 5px;background-color: white;">
+            <nz-row *ngIf="!recordElemnts">                
+                <nz-col [nzXs]="18" [nzSm]="20" [nzMd]="12" [nzLg]="14" [nzXl]="16" [nzXXl]="18">
                     <input nz-input placeholder="Ingrese su pregunta" [(ngModel)]="actMsg.data" (keydown.enter)="sendMessage()" />
                 </nz-col>
-                <nz-col [nzXs]="2" [nzSm]="2" [nzMd]="6" [nzLg]="5" [nzXl]="4" [nzXXl]="3">                    
+                <nz-col [nzXs]="3" [nzSm]="2" [nzMd]="6" [nzLg]="5" [nzXl]="4" [nzXXl]="3">                    
                     <button nz-button nzType="primary" nzShape="circle" [nzSize]="'default'" style="margin-left: 10px;" (click)="sendMessage()">
                         <span nz-icon nzType="send" nzTheme="outline"></span>
                     </button>                    
                 </nz-col>
-                <nz-col [nzXs]="2" [nzSm]="2" [nzMd]="6" [nzLg]="5" [nzXl]="4" [nzXXl]="3">
-                    <button nz-button nzType="primary" nzShape="circle" [nzSize]="'default'" (click)="sendMessage()">
+                <nz-col [nzXs]="3" [nzSm]="2" [nzMd]="6" [nzLg]="5" [nzXl]="4" [nzXXl]="3">
+                    <button nz-button nzType="primary" nzShape="circle" [nzSize]="'default'" (click)="startRecording()">
                         <span nz-icon nzType="audio" nzTheme="outline"></span>
+                    </button>
+                </nz-col>
+            </nz-row>
+            <nz-row *ngIf="recordElemnts && isRecording" [nzAlign]="'middle'" [nzJustify]="'center'" >
+                <nz-col [nzXs]="4" [nzSm]="4" [nzMd]="8" [nzLg]="7" [nzXl]="6" [nzXXl]="5" style="color: black;">
+                    {{recordedTime}}
+                </nz-col>
+                <nz-col  [nzXs]="18" [nzSm]="18" [nzMd]="10" [nzLg]="12" [nzXl]="14" [nzXXl]="16">
+                    <img src="assets/animation_lmo3kbfc_small.gif" style="width:-webkit-fill-available;height: 40px;">
+                </nz-col>
+                <nz-col [nzXs]="2" [nzSm]="2" [nzMd]="6" [nzLg]="5" [nzXl]="4" [nzXXl]="3">
+                    <button nz-button nzType="primary" nzShape="circle" [nzSize]="'default'" style="margin-left: 10px;" (click)="stopRecording()">
+                        <span nz-icon nzType="stop" nzTheme="outline"></span>
+                    </button>
+                </nz-col>
+            </nz-row>
+            <nz-row *ngIf="recordElemnts && !isRecording && blobUrl">
+                <nz-col  [nzXs]="18" [nzSm]="20" [nzMd]="12" [nzLg]="14" [nzXl]="16" [nzXXl]="18">
+                    <audio controls>
+                        <source [src]="blobUrl" type="audio/webm">
+                    </audio>
+                </nz-col>
+                <nz-col [nzXs]="3" [nzSm]="2" [nzMd]="6" [nzLg]="5" [nzXl]="4" [nzXXl]="3">
+                    <button nz-button nzType="primary" nzShape="circle" [nzSize]="'default'" style="margin-left: 10px;" (click)="clearRecordedData()">
+                        <span nz-icon nzType="delete" nzTheme="outline"></span>
+                    </button>
+                </nz-col>
+                <nz-col [nzXs]="3" [nzSm]="2" [nzMd]="6" [nzLg]="5" [nzXl]="4" [nzXXl]="3">
+                    <button nz-button nzType="primary" nzShape="circle" [nzSize]="'default'" style="margin-left: 10px;">
+                        <span nz-icon nzType="check" nzTheme="outline"></span>
                     </button>
                 </nz-col>
             </nz-row>

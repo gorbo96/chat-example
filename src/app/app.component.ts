@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ChatServiceService } from './chat-service.service';
 import { BehaviorSubject, Observable, Subject, of } from 'rxjs';
 import { MessageParams} from './message-params';
@@ -8,29 +8,81 @@ import { catchError, takeUntil } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { DomSanitizer } from '@angular/platform-browser';
 import {PdfViewerComponent} from './modules/pdf-viewer/pdf-viewer.component'
+import {AudioRecordingService} from './audio-recording.service'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit,OnDestroy{
   @ViewChild('scrollframe', { read: ElementRef,static:false}) scrollFrame: ElementRef<any> | undefined;  
   messages:MessageGPT[]=[]
   msgParams:MessageParams= new MessageParams()
   actMsg:MessageGPT=new MessageGPT()
-  visiblebox:boolean=false
+  visiblebox:boolean=false  
+  recordElemnts:boolean=false
+
+  isRecording:boolean=false  
+  recordedTime:any
+  blobUrl:any
+  teste:any
+
   record:any
-  recording:boolean=false
   audioError:any
   url:any
+  
 
-  constructor(public msg: ChatServiceService,private domSanitizer: DomSanitizer){
+  constructor(private msg: ChatServiceService,private sanitizer: DomSanitizer,private audioRecordingService: AudioRecordingService,){
+    this.audioRecordingService.recordingFailed().subscribe(() => (this.isRecording = false))
+    this.audioRecordingService.getRecordedTime().subscribe(time => (this.recordedTime = time))
+    this.audioRecordingService.getRecordedBlob().subscribe(data => {
+      this.teste = data;
+      this.blobUrl = this.sanitizer.bypassSecurityTrustUrl(
+        URL.createObjectURL(data.blob)
+      );
+    });
   }  
 
   ngOnInit(): void {}
 
-  /*initiateRecording() {
+  startRecording() {
+    if (!this.isRecording) {
+      this.recordElemnts= true
+      this.isRecording = true;
+      this.audioRecordingService.startRecording();
+    }
+  }
+
+  abortRecording() {
+    if (this.isRecording) {
+      this.isRecording = false;
+      this.audioRecordingService.abortRecording();
+    }
+  }
+
+  stopRecording() {
+    if (this.isRecording) {
+      this.audioRecordingService.stopRecording();
+      this.isRecording = false;      
+    }
+  }
+
+  sendRecord(){
+
+  }
+
+  clearRecordedData() {
+    this.blobUrl = null;
+    this.recordElemnts=false
+  }
+
+  ngOnDestroy(): void {
+    this.abortRecording();
+  }
+
+  /*
+  initiateRecording() {
     this.recording = true;
     let mediaConstraints = {
     video: false,
@@ -44,9 +96,9 @@ export class AppComponent implements OnInit{
     numberOfAudioChannels: 1,
     sampleRate: 16000,
     };
-    var StereoAudioRecorder = RecordRTC.StereoAudioRecorder;
-    this.record = new StereoAudioRecorder(stream, options);
-    this.record.record();
+    //var StereoAudioRecorder = RecordRTC.StereoAudioRecorder;
+    //this.record = new StereoAudioRecorder(stream, options);
+    //this.record.record();
   }
   stopRecording() {
     this.recording = false;
@@ -59,7 +111,7 @@ export class AppComponent implements OnInit{
   }
   errorCallback(error:any) {
     this.audioError = 'Can not play audio in your browser';
-  }
+  } 
   */
 
   async sendMessage(){    
@@ -70,17 +122,14 @@ export class AppComponent implements OnInit{
     this.actMsg.data=""    
     await this.scrollBottom()
     let newMsg= new MessageGPT()
-    newMsg.loading=false
-    newMsg.system=true
-    newMsg.data="respuesta"
+    newMsg.loading=true
+    newMsg.system=true    
     this.messages.push(newMsg)
-    await this.scrollBottom()
-    /*
+    await this.scrollBottom()    
     let aux= await this.msg.getChatResponse(this.msgParams).toPromise()
     this.messages[this.messages.length - 1].data=aux.data.content
     this.messages[this.messages.length - 1].loading=false    
     await this.scrollBottom()
-    */
   }
   visiblechat(){
     this.visiblebox=!this.visiblebox

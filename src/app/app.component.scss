@@ -65,3 +65,10 @@ nz-layout {
 nz-header{
     background-color:#0066a0;padding: 0px 0px 0px 0px;
 }
+audio {
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;    
+}
+audio::-webkit-media-controls-play-button,audio::-webkit-media-controls-panel {
+    background-color: #fee3b7;    
+}

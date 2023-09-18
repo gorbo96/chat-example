@@ -7,9 +7,10 @@ import { Observable } from 'rxjs';
 })
 export class ChatServiceService {
 
-  private api = 'http://chatgptapi.eastus.cloudapp.azure.com:5000/bot-question';
+  private api = 'http://localhost:5000';
   constructor(private http: HttpClient) { }
   getChatResponse(param: any): Observable<any> {
-    return this.http.post(`${this.api}`, param);
+    return this.http.post(`${this.api}/bot-question`, param);
   }
+  
 }

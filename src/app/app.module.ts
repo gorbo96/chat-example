@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgZorroAntdModule } from './modules/ng-zorro/ng-zorro.module';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { PdfViewerComponent } from './modules/pdf-viewer/pdf-viewer.component';
+import { AudioRecordingService } from "./audio-recording.service";
 
 registerLocaleData(es);
 
@@ -19,7 +20,8 @@ registerLocaleData(es);
   declarations: [AppComponent, PdfViewerComponent],
   imports: [BrowserModule,HttpClientModule,FormsModule, BrowserAnimationsModule,NgZorroAntdModule,PdfViewerModule],
   providers: [
-    { provide: NZ_I18N, useValue: es_ES }
+    { provide: NZ_I18N, useValue: es_ES },
+    AudioRecordingService
   ],
   bootstrap: [AppComponent],
 })
