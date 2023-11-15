@@ -118,7 +118,7 @@ export class AppComponent implements OnInit,OnDestroy{
     let actMsg= new MessageGPT()
     actMsg.data=this.actMsg.data
     this.messages.push(actMsg)
-    this.msgParams.question=actMsg.data   
+    this.msgParams.message=actMsg.data   
     this.actMsg.data=""    
     await this.scrollBottom()
     let newMsg= new MessageGPT()
@@ -127,7 +127,7 @@ export class AppComponent implements OnInit,OnDestroy{
     this.messages.push(newMsg)
     await this.scrollBottom()    
     let aux= await this.msg.getChatResponse(this.msgParams).toPromise()
-    this.messages[this.messages.length - 1].data=aux.data.content
+    this.messages[this.messages.length - 1].data=aux.data
     this.messages[this.messages.length - 1].loading=false    
     await this.scrollBottom()
   }

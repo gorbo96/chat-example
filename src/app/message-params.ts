@@ -1,6 +1,8 @@
 export class MessageParams {
-    question:string
+    message:string
+    number:string
     constructor(){
-        this.question=""
+        this.message=""
+        this.number="0998744551"
     }
 }

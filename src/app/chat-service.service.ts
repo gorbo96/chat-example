@@ -7,10 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class ChatServiceService {
 
-  private api = 'http://localhost:5000';
+  private api = 'http://ec2-35-87-129-144.us-west-2.compute.amazonaws.com:3000/';
   constructor(private http: HttpClient) { }
   getChatResponse(param: any): Observable<any> {
-    return this.http.post(`${this.api}/bot-question`, param);
-  }
-  
+    return this.http.post(`${this.api}getWhtspMsg`, param);
+  }  
 }
